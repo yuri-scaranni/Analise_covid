@@ -1,11 +1,9 @@
 """
     TRANSFORM
     Utilizando a biblioteca pandas transformamos o arquivo em um dataframe, desta forma conseguimos realizar diversas
-    operações para o tratamento, dentre elas selecionar apenas dados referentes ao Brasil e manter somente 8 colunas.
+    operações para o tratamento.
 """
 import pandas as pd
-
-data = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
 
 campos_nome = {
 "iso_code":"codigo_iso",
@@ -42,8 +40,12 @@ campos_nome = {
 "life_expectancy":"expectativa_vida"
 }
 
+data = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
+
 data = data.filter(campos_nome.keys())  # Filtro de colunas
+
 data = data.rename(columns=campos_nome)  # Renomeando colunas para PT-BR
+
 data_south_america = data[data['continente'] == 'South America']  # Extraindo somente dados América do Sul
 
 data_south_america.to_csv('download/covid19_SA.csv', sep=',', index=False)

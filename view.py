@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 SA - SOUTH AMÉRICA
 """
 
+
 def sa_mortes_total_por_mes():
     dataframe = pd.read_csv('download/covid19_SA.csv', sep=',')
     dataframe['data'] = pd.to_datetime(dataframe['data']).apply(lambda x: x.strftime('%Y-%m'))
