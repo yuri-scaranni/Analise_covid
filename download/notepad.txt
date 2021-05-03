@@ -1,1 +1,31 @@
 Todos os animais são iguais mas alguns animais são mais iguais que outros.
+
+
+def grafico_relacao_pib_x_mortes():
+    df = pd.read_csv('download/covid19.csv', sep=',')
+    df['data'] = pd.to_datetime(df['data'])
+
+    df2_top = df.loc[df['data'] == max(df['data'])].sort_values(by=['pib_per_capita'], ascending=False).head(7)
+    df2_bot = df.loc[df['data'] == max(df['data'])].sort_values(by=['pib_per_capita']).head(7)
+    df2_brazil = df.loc[(df['pais'] == 'Brazil') & (df['data'] == max(df['data']))]
+    df2 = pd.concat([df2_top, df2_bot, df2_brazil])
+    df2 = df2.filter(['pais', 'pib_per_capita', 'total_mortes_por_milhao']).sort_values(by=['pib_per_capita'], ascending=False)
+
+    f, ax = plt.subplots(figsize=(6, 15))
+
+    sns.set_color_codes("pastel")
+    sns.set_theme(style="darkgrid")
+    sns.barplot(data=df2, x='total_mortes_por_milhao', y='pais', orient='h', color='b', label='Mortes por milhão')
+
+    sns.set_color_codes("muted")
+    sns.barplot(data=df2, x='pib_per_capita', y='pais', orient='h', color='r', label='PIB per capita')
+
+    plt.xlabel("Mortes por milhão")
+    plt.title("Relação PIB x Mortes")
+
+    ax.legend(ncol=2, loc="lower right", frameon=True)
+    ax.set(xlim=(0, 150000), ylabel="", xlabel="Comparativo entre paises ricos/pobres e mortes por milhão de habitantes")
+    sns.despine(left=True, bottom=True)
+    plt.show()
+
+grafico_relacao_pib_x_mortes()

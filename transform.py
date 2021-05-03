@@ -40,12 +40,12 @@ campos_nome = {
 "life_expectancy":"expectativa_vida"
 }
 
-data = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
+df = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
 
-data = data.filter(campos_nome.keys())  # Filtro de colunas
+df = df.filter(campos_nome.keys())   # Filtrando colunas
+df = df.rename(columns=campos_nome)  # Renomeando colunas
 
-data = data.rename(columns=campos_nome)  # Renomeando colunas para PT-BR
+brics = ['Brazil', 'Russia', 'India', 'China', 'South Africa']
+df_brics = df.loc[df['pais'].isin(brics)]  # Selecionando apenas membros do BRICS
 
-data_south_america = data[data['continente'] == 'South America']  # Extraindo somente dados América do Sul
-
-data_south_america.to_csv('download/covid19_SA.csv', sep=',', index=False)
+df_brics.to_csv('download/covid19_brics.csv', sep=',', index=False)
