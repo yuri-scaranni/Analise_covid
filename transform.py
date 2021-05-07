@@ -45,7 +45,4 @@ df = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
 df = df.filter(campos_nome.keys())   # Filtrando colunas
 df = df.rename(columns=campos_nome)  # Renomeando colunas
 
-brics = ['Brazil', 'Russia', 'India', 'China', 'South Africa']
-df_brics = df.loc[df['pais'].isin(brics)]  # Selecionando apenas membros do BRICS
-
-df_brics.to_csv('download/covid19_brics.csv', sep=',', index=False)
+df.to_csv('download/covid19.csv', sep=',', index=False)

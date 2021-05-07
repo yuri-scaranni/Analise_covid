@@ -2,17 +2,22 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 
-"""
-SA - SOUTH AMÉRICA
-"""
+df = pd.read_csv('download/covid19.csv', sep=',')
+df['data'] = pd.to_datetime(df['data'])
 
 
-def sa_mortes_total_por_mes():
-    dataframe = pd.read_csv('download/covid19_SA.csv', sep=',')
-    dataframe['data'] = pd.to_datetime(dataframe['data']).apply(lambda x: x.strftime('%Y-%m'))
-    dataframe = dataframe.query('pais == ["Brazil", "Argentina", "Paraguay", "Uruguay", "Bolivia"]')
-    sns.set_theme(style="whitegrid")
-    sns.lineplot(data=dataframe, x='data', y='mortes_totais', hue='pais', palette="flare")
+def indice_morte_milhao():
+    #df2 = df.filter(['pais', 'data', 'total_mortes_por_milhao'])
+    #
+    # # Alterando coluna 'data' para somente Ano-Mês
+    # df['data'] = df['data'].dt.to_period('M').apply(str)
+    # # Agrupando paises por mês e fazendo a média de novos casos
+    # df2 = df.groupby(['data', 'pais']).mean(['total_mortes_por_milhao']).round(2)
+
+    print(df.columns)
+    sns.set_theme(style='darkgrid')
+    sns.barplot(data=df, x='data', y='total_mortes_por_milhao', hue='pais')
+    plt.show()
 
 
 def sa_mortes_total():
@@ -67,3 +72,4 @@ def sa_mortes_por_milhao():
     plt.show()
 
 
+indice_morte_milhao()

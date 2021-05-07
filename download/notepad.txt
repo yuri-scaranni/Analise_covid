@@ -29,3 +29,15 @@ def grafico_relacao_pib_x_mortes():
     plt.show()
 
 grafico_relacao_pib_x_mortes()
+
+
+
+
+
+
+
+#brics = ['Brazil', 'Russia', 'India', 'China', 'South Africa']
+#df_brics = df.loc[df['pais'].isin(brics)]  # Selecionando apenas membros do BRICS
+
+#df_brics.to_csv('download/covid19_brics.csv', sep=',', index=False)
+

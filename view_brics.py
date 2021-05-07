@@ -1,10 +1,63 @@
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import timedelta
 
 
-df = pd.read_csv('download/covid19_brics.csv', sep=',')
-df['data'] = pd.to_datetime(df['data'])
+def mortes_covid_top_15():
+    df = pd.read_csv('download/covid19.csv', sep=',')
+    df['data'] = pd.to_datetime(df['data'])
+    yesterday = max(df['data']) - timedelta(days=1)
+    df = df.loc[df['data'] == yesterday]
+    df = df.dropna(subset=['continente'])
+    df = df.sort_values(by='mortes_totais', ascending=False).head(15)
+    df = df.filter(['pais', 'mortes_totais'])
+
+    sns.set_theme(style="darkgrid")
+    palette = sns.color_palette("Wistia", 15)
+    ax = sns.barplot(data=df, x='pais', y='mortes_totais', palette=palette)
+
+    for p in ax.patches:
+        ax.annotate('{}'.format(int(p.get_height())),
+                    (p.get_x() + 0.12, p.get_height() + 2000),
+                    size=10)
+
+    plt.xlabel("Países")
+    plt.ylabel("Mortes totais")
+    plt.title("Ranking mortes covid")
+    plt.xticks(rotation=45)
+    plt.show()
+
+
+def ranking_vacinados():
+    df = pd.read_csv('download/covid19.csv', sep=',')
+    df['data'] = pd.to_datetime(df['data'])
+    yesterday = max(df['data']) - timedelta(days=1)
+    df = df.loc[df['data'] == yesterday]
+    df = df.dropna(subset=['continente'])
+    df = df.sort_values(by=['total_vacinas'], ascending=False).head(15)
+    df = df.filter(['pais', 'total_vacinacao_por_centena', 'total_vacinas'])
+
+
+
+    ax = plt.subplots()
+
+    ax = sns.barplot(data=df, x='pais', y='total_vacinacao_por_centena', color='b', label='Total de vacinados')
+    ax = sns.barplot(data=df, x='pais', y='total_vacinas', color='r', label='Total de vacinas')
+    # Criando unidade Mi(milhão) no eixo Y
+    from matplotlib.ticker import FuncFormatter
+    f = lambda x, pos: f'{x / 10 ** 6:,.0f} Mi'
+    ax.yaxis.set_major_formatter(FuncFormatter(f))
+
+    plt.xlabel("Países")
+    plt.legend()
+    plt.ylabel("")
+    plt.title("Ranking de vacinas - Top 15")
+    plt.xticks(rotation=45)
+    plt.show()
+
+
+ranking_vacinados()
 
 
 def grafico_mortes_por_tempo():
@@ -83,4 +136,4 @@ def grafico_relacao_pib_x_mortes():
     plt.title("Relação entre milhão de mortos e PIB do pais - Agrupados por continente")
     plt.show()
 
-grafico_relacao_pib_x_mortes()
+
