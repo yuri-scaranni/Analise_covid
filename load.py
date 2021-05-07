@@ -13,7 +13,7 @@ conn = {'host': 'localhost', 'user': 'root', 'pass': '', 'database': 'analise_co
 engine = create_engine(f'mysql+pymysql://{conn["user"]}:{conn["pass"]}@{conn["host"]}/{conn["database"]}')
 
 # Abrindo arquivo de dados transformados
-data = pd.read_csv('download/covid19_SA.csv', sep=',', encoding='utf-8', index_col=False)
+data = pd.read_csv('download/covid19_renamed.csv', sep=',', encoding='utf-8', index_col=False)
 
 # Insere os dados
 data.to_sql(name='covid_19', con=engine, schema=conn["database"], if_exists='replace', index=False)

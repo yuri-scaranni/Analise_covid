@@ -1,8 +1,3 @@
-"""
-    TRANSFORM
-    Utilizando a biblioteca pandas transformamos o arquivo em um dataframe, desta forma conseguimos realizar diversas
-    operações para o tratamento.
-"""
 import pandas as pd
 
 campos_nome = {
@@ -41,8 +36,6 @@ campos_nome = {
 }
 
 df = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
-
 df = df.filter(campos_nome.keys())   # Filtrando colunas
 df = df.rename(columns=campos_nome)  # Renomeando colunas
-
-df.to_csv('download/covid19.csv', sep=',', index=False)
+df.to_csv('download/covid19_renamed.csv', sep=',', index=False)
