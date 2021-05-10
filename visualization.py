@@ -91,7 +91,7 @@ def relacao_casos_x_mortes():
 
         plt.xlabel("Total de mortos")
         plt.ylabel("Total de casos")
-        plt.title("Linha temporal do total de casos de covid")
+        plt.title("Relação Casos x Mortes")
         plt.show()
 
 relacao_casos_x_mortes()

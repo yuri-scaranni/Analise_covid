@@ -16,3 +16,4 @@ if data.status_code != 200:
 with open(f'download/{name_dataset}', 'w', encoding='utf-8') as f:
     f.write(data.text)
 print('>>>> Extração finalizada <<<<')
+
