@@ -13,7 +13,7 @@ campos_nome = {
 "new_cases_per_million":"novos_casos_por_milhao",
 "total_deaths_per_million":"total_mortes_por_milhao",
 "new_deaths_per_million":"novas_mortes_por_milhao",
-"reproduction_rate":"indice_reproducao",
+"reproduction_rate":"taxa_transmissao",
 "new_tests":"novos_testes",
 "total_tests":"total_testes",
 "total_tests_per_thousand":"total_testes_por_mil",
@@ -36,6 +36,6 @@ campos_nome = {
 }
 
 df = pd.read_csv(f'download/covid19.csv', sep=',', encoding='utf-8')
-df = df.filter(campos_nome.keys())   # Filtrando colunas
-df = df.rename(columns=campos_nome)  # Renomeando colunas
+df = df.filter(campos_nome.keys())
+df = df.rename(columns=campos_nome)
 df.to_csv('download/covid19_renamed.csv', sep=',', index=False)
