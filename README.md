@@ -1,4 +1,4 @@
-# Modelo simples de ETL
+# Modelo de ETL
 
 Autor: **Yuri C. de Brito Scaranni**               
 *19 de março, 2021*
