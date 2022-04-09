@@ -9,6 +9,9 @@ import awswrangler as wr
 import pandas as pd
 import os
 
+LOGGER = logging.getLogger()
+LOGGER.setLevel(logging.INFO)
+
 
 def lambda_handler(event, context):
     analise_covid_extract()
@@ -24,7 +27,7 @@ def analise_covid_extract():
     name_dataset = f'owid_covid19_{timestamp}.csv'
     source_url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
 
-    logging.info('Extraction started.')
+    LOGGER.info('Extraction started.')
 
     df = pd.read_csv(source_url)
 
@@ -32,6 +35,6 @@ def analise_covid_extract():
 
     wr.s3.to_csv(df, s3_path, index=False)
 
-    logging.info('Extraction finish.')
+    LOGGER.info('Extraction finish.')
     end = time.time()
-    logging.info(f'Time elapsed {end-start}s.')
+    LOGGER.info(f'Time elapsed {end-start}s.')
