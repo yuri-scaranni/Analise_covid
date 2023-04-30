@@ -10,6 +10,9 @@ source_url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
 print('>>>> Extração iniciada <<<<')
 
 data = requests.get(source_url)
+
+print('>>>> Busquei o arquivo <<<<')
+
 if data.status_code != 200:
     print('Erro ao extrair!')
 
